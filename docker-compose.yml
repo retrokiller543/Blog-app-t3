@@ -1,6 +1,24 @@
-version: "3.7"
-
+version: '3.7'
 services:
+  app:
+    image: node
+    build: ./
+    env_file:
+      - .env
+    ports:
+      - '3000:3000'
+    container_name: app
+    volumes:
+      - ./:/app
+      # - app-data:/app
+    links:
+      - postgres:db
+    networks:
+      - postgres
+    depends_on:
+      - postgres
+      - pgadmin
+
   postgres:
     container_name: postgres_container
     image: postgres
@@ -11,7 +29,7 @@ services:
     volumes:
       - postgres:/data/postgres
     ports:
-      - "5432:5432"
+      - '5432:5432'
     networks:
       - postgres
     restart: unless-stopped
@@ -25,7 +43,9 @@ services:
     volumes:
       - pgadmin:/root/.pgadmin
     ports:
-      - "${PGADMIN_PORT:-5050}:80"
+      - '${PGADMIN_PORT:-5050}:80'
+    links:
+      - postgres:postgres
     networks:
       - postgres
     restart: unless-stopped
