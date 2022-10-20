@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import { useSession } from 'next-auth/react'
+import { useSession, signOut } from 'next-auth/react'
 
 const user: NextPage = () => {
   const { data: session } = useSession({ required: true })
@@ -11,9 +11,10 @@ const user: NextPage = () => {
         <img
           src={session?.user?.image}
           alt="user image"
-          className="h-6 w-6 rounded-full"
+          className="h-12 w-12 rounded-full"
         />
         <p>The user email is {session?.user?.email}</p>
+        <button onClick={() => signOut()}>Sign Out</button>
       </section>
     </main>
   )

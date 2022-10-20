@@ -12,9 +12,6 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="container mx-auto flex min-h-screen flex-col items-center justify-center p-4">
-        <div className="flex w-full items-center justify-center pt-6 text-2xl text-blue-500">
-          <h1>Blog App</h1>
-        </div>
         <AuthShowcase />
       </main>
     </>
@@ -29,7 +26,7 @@ const AuthShowcase: React.FC = () => {
   const { data: sessionData } = useSession()
 
   return (
-    <div className="flex flex-col items-center justify-center gap-2">
+    <div className="flex flex-col items-center justify-center">
       {sessionData && (
         <p className="text-2xl text-blue-500">
           Logged in as {sessionData?.user?.name}
