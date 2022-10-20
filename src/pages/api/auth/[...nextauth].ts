@@ -1,13 +1,13 @@
 import NextAuth, { type NextAuthOptions } from 'next-auth'
+// import bcrypt from 'bcrypt'
+// import CredentialsProvider from 'next-auth/providers/credentials'
 import DiscordProvider from 'next-auth/providers/discord'
-import GoogleProvider from 'next-auth/providers/google'
 import GitHubProvider from 'next-auth/providers/github'
 
 // Prisma adapter for NextAuth, optional and can be removed
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { prisma } from '../../../server/db/client'
 import { env } from '../../../env/server.mjs'
-import Providers from 'next-auth/providers'
 
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
@@ -22,25 +22,45 @@ export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
   providers: [
-    GitHubProvider({
-      clientId: env.ID_GITHUB,
-      clientSecret: env.SECRET_GITHUB,
-    }),
+    // CredentialsProvider({
+    //   name: 'Sign in',
+    //   id: 'app',
+    //   credentials: {
+    //     username: { label: 'Username', type: 'text' },
+    //     password: { label: 'Password', type: 'password' },
+    //   },
+
+    //   authorize: async (credentials: {
+    //     username: string
+    //     password: string
+    //   }) => {
+    //     const user = await prisma.user.findUnique({
+    //       where: { username: credentials.username },
+    //     })
+    //     if (!user) {
+    //       return null
+    //     }
+    //     console.log(user)
+    //     // const valid = await bcrypt.compare(credentials.password, user.password)
+
+    //     // if (!valid) {
+    //     //   console.log(`Credentials not valid`)
+    //     //   return null
+    //     // }
+
+    //     // if (user) {
+    //     //   return { ...user, email: user.username }
+    //     // }
+    //     return user
+    //   },
+    // }),
     DiscordProvider({
       clientId: env.DISCORD_CLIENT_ID,
       clientSecret: env.DISCORD_CLIENT_SECRET,
     }),
-    // ...add more providers here
-    GoogleProvider({
-      clientId: env.GOOGLE_ID,
-      clientSecret: env.GOOGLE_SECRET,
-      authorization: {
-        params: {
-          prompt: 'consent',
-          access_type: 'offline',
-          response_type: 'code',
-        },
-      },
+    GitHubProvider({
+      clientId: env.ID_GITHUB,
+      clientSecret: env.SECRET_GITHUB,
     }),
   ],
 }
