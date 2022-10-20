@@ -5,7 +5,7 @@ const user: NextPage = () => {
   const { data: session } = useSession({ required: true })
 
   return (
-    <main>
+    <main className="container mx-auto flex min-h-screen flex-col items-center justify-center p-4">
       <section>
         <h2>user is {session?.user?.name}</h2>
         <img

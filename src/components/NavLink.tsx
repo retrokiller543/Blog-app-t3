@@ -1,9 +1,9 @@
 import Link from 'next/link'
 
-function NavLink({ href, name, classname }) {
+function NavLink({ href, children }) {
   return (
     <Link href={href} passHref replace>
-      <a className={classname}>{name}</a>
+      {children}
     </Link>
   )
 }
