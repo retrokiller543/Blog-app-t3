@@ -1,4 +1,4 @@
-// @ts-check
+// @ts-nocheck
 import { clientEnv, clientSchema } from './schema.mjs'
 
 const _clientEnv = clientSchema.safeParse(clientEnv)
@@ -17,7 +17,6 @@ export const formatErrors = (
 if (!_clientEnv.success) {
   console.error(
     '❌ Invalid environment variables:\n',
-    // @ts-ignore
     ...formatErrors(_clientEnv.error.format())
   )
   throw new Error('Invalid environment variables')
