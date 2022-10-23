@@ -16,29 +16,38 @@ const Nav = () => {
 
   return (
     <>
-      <nav className="flex items-center justify-between bg-main-dark-bg ">
-        <section className="m-4 text-white">
+      <nav className="flex items-center justify-between bg-main-dark-bg">
+        <section className="m-4 px-4 py-2 text-white">
           <h3>Blog App</h3>
         </section>
-        <section className="ml-96 ">
-          <ul className="m-4 flex text-white">
-            {Object.keys(collapseItems).map((item) => (
-              <div key={item}>
-                <NavLink href={collapseItems[item]}>
-                  <li className="m-2 cursor-pointer rounded-md p-4 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-main-bg hover:text-black">
-                    {item}
-                  </li>
+        <section className="flex">
+          <section className="my-8">
+            <ul className="flex gap-1 text-white">
+              {Object.keys(collapseItems).map((item) => (
+                <li key={item}>
+                  <NavLink href={collapseItems[item]}>
+                    <p className="cursor-pointer rounded-md px-4 py-2 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-main-bg hover:text-black">
+                      {item}
+                    </p>
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </section>
+          <section className="m-5 px-4 py-2 text-white">
+            {session ? (
+              <Mydropdown />
+            ) : (
+              <section className="flex">
+                <button onClick={() => signIn()} className="m-4">
+                  Sign In
+                </button>
+                <NavLink href="/account/register">
+                  <p className="m-4">Register</p>
                 </NavLink>
-              </div>
-            ))}
-          </ul>
-        </section>
-        <section className="m-4 text-white">
-          {session ? (
-            <Mydropdown />
-          ) : (
-            <button onClick={() => signIn()}>Sign In</button>
-          )}
+              </section>
+            )}
+          </section>
         </section>
       </nav>
     </>
