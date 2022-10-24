@@ -8,10 +8,10 @@ type LayoutProps = {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <main>
+    <main className="w-screen">
       <Box
         css={{
-          maxW: '100%',
+          maxW: '100vw',
         }}
       >
         <Header />
