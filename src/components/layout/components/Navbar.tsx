@@ -39,11 +39,16 @@ const Nav = () => {
               <Mydropdown />
             ) : (
               <section className="flex">
-                <button onClick={() => signIn()} className="m-4">
+                <button
+                  onClick={() => signIn()}
+                  className="my-3 mx-1 cursor-pointer rounded-md border-2 border-blue-500 px-4 py-2 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-main-bg hover:text-black"
+                >
                   Sign In
                 </button>
                 <NavLink href="/account/register">
-                  <p className="m-4">Register</p>
+                  <p className="my-3 mx-1 cursor-pointer rounded-md border-2 border-blue-500 px-4 py-2 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-main-bg hover:text-black">
+                    Register
+                  </p>
                 </NavLink>
               </section>
             )}

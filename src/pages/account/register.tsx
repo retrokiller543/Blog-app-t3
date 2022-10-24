@@ -1,16 +1,20 @@
 import { NextPage } from 'next'
 import { Formik } from 'formik'
 import { prisma } from '../../server/db/client'
-import bcrypt from 'bcrypt'
 
-import { env } from '../../env/server.mjs'
+type user = {
+  name: string
+  email: string
+  password: string
+  validPassword: string
+}
 
 const register: NextPage = () => {
   return (
     <>
       <Formik
         initialValues={{ name: '', email: '', password: '', validPassword: '' }}
-        onSubmit={handelRegister}
+        onSubmit={registerUser}
       >
         {(props) => (
           <form
@@ -67,31 +71,29 @@ const register: NextPage = () => {
 
 export default register
 
-async function handelRegister(values) {
-  const saltRounds = 10
-  const password = values.password
-  const valid_password = values.validPassword
-  if (password === valid_password) {
-    const curr_user_email = await prisma.user.findUnique({
-      where: {
-        email: values.email,
-      },
-    })
-    alert(curr_user_email)
-    console.log(curr_user_email)
-    if (curr_user_email) {
-      alert('test')
-      return null
+const registerUser = async (values: user) => {
+  if (values.password === values.validPassword) {
+    const url = `${getBaseUrl()}/api/user/register`
+    const user = {
+      name: values.name,
+      email: values.email,
+      password: values.password,
     }
-    const user = await prisma.user.create({
-      data: {
-        name: values.name,
-        email: values.email,
-        password: values.password,
-      },
-    })
-    console.log(user)
-    alert(user)
-    return user
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(user),
+        headers: { 'Content-Type': 'application/json' },
+      })
+      console.log(res)
+    } catch (error) {
+      console.log(error)
+    }
   }
+}
+
+const getBaseUrl = () => {
+  if (typeof window !== 'undefined') return ''
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`
+  return `http://localhost:${process.env.PORT ?? 3000}`
 }
