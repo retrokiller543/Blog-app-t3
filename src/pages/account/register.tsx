@@ -85,7 +85,6 @@ const registerUser = async (values: user) => {
         body: JSON.stringify(user),
         headers: { 'Content-Type': 'application/json' },
       })
-      console.log(res)
     } catch (error) {
       console.log(error)
     }
