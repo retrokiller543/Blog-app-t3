@@ -15,7 +15,7 @@ export default function Layout({ children }: LayoutProps) {
         }}
       >
         <Header />
-        {children}
+        <section className="flex items-center ">{children}</section>
         <Footer />
       </Box>
     </main>

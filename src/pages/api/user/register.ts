@@ -26,7 +26,6 @@ const registerUser = async (req: NextApiRequest, res: NextApiResponse) => {
   } else {
     res.status(400).send('User exists')
   }
-  res.status(200).send('test')
 }
 
 export default registerUser
