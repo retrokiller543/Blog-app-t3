@@ -1,6 +1,5 @@
 import { NextPage } from 'next'
 import { Formik } from 'formik'
-import { prisma } from '../../server/db/client'
 import { useSession } from 'next-auth/react'
 
 type user = {
