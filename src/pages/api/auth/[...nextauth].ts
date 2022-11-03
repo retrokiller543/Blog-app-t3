@@ -24,7 +24,7 @@ export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
-      id: 'app',
+      // id: 'app',
       credentials: {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
@@ -34,15 +34,8 @@ export const authOptions: NextAuthOptions = {
         const user = await prisma.user.findUnique({
           where: { email: credentials.email },
         })
-        console.log(user)
-        if (!user) {
-          return null
-        }
-        console.log(user)
         const valid = await bcrypt.compare(credentials.password, user.password)
-
-        if (!valid) {
-          console.log(`Credentials not valid`)
+        if (!user || !valid) {
           return null
         }
 
